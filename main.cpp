@@ -2,8 +2,10 @@
 #include<vector>
 #include<sstream>
 #include<fstream>
+#include<chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 class Structure{
 public:
@@ -41,15 +43,15 @@ void heapSort(Structure b[], int n);
 int main(){
   Structure array_str[100];
   //perasma tyxaiwn dedomenwn apo to file sto pinaka array_str
-  fstream file;
-  file.open("data2.csv",ios::in);
+  fstream rand_data;
+  rand_data.open("rand_data.csv",ios::out);
   //dhmiourgia object gia kathe xwra kai apo8hkeysei tou sto pinaka countries[199]
 	vector<string> row;
 	for(int i=0;i<100;i++){
 		row.clear();
 		//h katalhksh .clear() katharizei to vector
 		string line,word;
-		getline(file,line);
+		getline(rand_data,line);
 		stringstream s(line);
 		while (getline(s,word,','))
 			row.push_back(word);
@@ -59,49 +61,54 @@ int main(){
 	}
 
   //TAKSINOMISEIES
-  clock_t time;
   //Selection Sort
-  time = clock();
+  auto start=high_resolution_clock::now();
   selectionSort(array_str,100);
-  time = clock()-time;
-  double time_taken = (double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Selection Sort:"<<time_taken<<endl;
+  auto stop=high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
+  cout<<"Selection Sort:"<<duration.count()<<endl;
   //Bubble Sort
-  time = clock();
+  start=high_resolution_clock::now();
   bubbleSort(array_str,100);
-  time = clock()-time;
-  time_taken = (double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Bubble Sort:"<<time_taken<<endl;
+  stop=high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  cout<<"Bubble Sort:"<<duration.count()<<endl;
   //Insertion Sort
-  time = clock();
+  start=high_resolution_clock::now();
   insertionSort(array_str,100);
-  time = clock()-time;
-  time_taken=(double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Insertion Sort:"<<time_taken<<endl;
+  stop=high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  cout<<"Insertion Sort:"<<duration.count()<<endl;
   //Merge Sort
-  time = clock();
+  start=high_resolution_clock::now();
   mergeSort(array_str,100);
-  time = clock()-time;
-  time_taken=(double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Merge Sort:"<<time_taken<<endl;
+  stop=high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  cout<<"Merge Sort:"<<duration.count()<<endl;
   //Quick Sort
-  time = clock();
+  start=high_resolution_clock::now();
   quickSort(array_str,0,100-1);
-  time = clock()-time;
-  time_taken=(double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Quick Sort:"<<time_taken<<endl;
+  stop=high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  cout<<"Quick Sort:"<<duration.count()<<endl;
   //Shell Sort
-  time = clock();
+  start=high_resolution_clock::now();
   shellSort(array_str,100);
-  time = clock()-time;
-  time_taken=(double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Shell Sort:"<<time_taken<<endl;
+  stop=high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  cout<<"Shell Sort:"<<duration.count()<<endl;
   //Heap Sort
-  time = clock();
+  start=high_resolution_clock::now();
   heapSort(array_str,100);
-  time = clock()-time;
-  time_taken=(double)time/(double)CLOCKS_PER_SEC;
-  cout<<"Heap Sort:"<<time_taken<<endl;
+  stop=high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  cout<<"Heap Sort:"<<duration.count()<<endl;
+
+  //Apo8hkeysh xronwn se arxeio txt
+  fstream str_data;
+  str_data.open("str_data.txt",ios::in);
+  str_data<<"test"<<endl;
+
 
   return 0;
 }
@@ -109,12 +116,6 @@ int main(){
 void write_file(double array[],int n,FILE *file){
  for(int i=1;i<=n;i++)
   fprintf(file,"Plhthos akeraiwn=%d sec:%lf\n",i*100,array[i-1]);
-}
-
-void display(double array[],int n){
-    for(int i=1;i<=n;i++){
-        printf("Plhthos akeraiwn=%d sec:%lf\n",i*100,array[i-1]);
-    }
 }
 
 void swap(int *x,int *y){
