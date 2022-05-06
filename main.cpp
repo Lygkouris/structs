@@ -104,18 +104,9 @@ int main(){
   duration = duration_cast<microseconds>(stop - start);
   cout<<"Heap Sort:"<<duration.count()<<endl;
 
-  //Apo8hkeysh xronwn se arxeio txt
-  fstream str_data;
-  str_data.open("str_data.txt",ios::in);
-  str_data<<"test"<<endl;
 
 
   return 0;
-}
-
-void write_file(double array[],int n,FILE *file){
- for(int i=1;i<=n;i++)
-  fprintf(file,"Plhthos akeraiwn=%d sec:%lf\n",i*100,array[i-1]);
 }
 
 void swap(int *x,int *y){
